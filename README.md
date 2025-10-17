@@ -1,4 +1,9 @@
 # Konspekt
+
+
+
+
+
 namespace MinuKonspekt
 {
     internal class Program
