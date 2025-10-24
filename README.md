@@ -1,9 +1,5 @@
 # Konspekt
-
-
-
-
-
+```csharp
 namespace MinuKonspekt
 {
     internal class Program
