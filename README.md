@@ -39,6 +39,96 @@ namespace MinuKonspekt
             var y = 123;   //ta võib omada endas teisi andmetüüpi
             const int z = 9; // konstant-tüüpi muutujaid ei saa muuta, nende sise on read-only
 
+
+            /* Võimalikud andmetüübid mida vaja võib minna: */
+            int a = 1; // integer on täisarv
+            decimal b = 2.1M; // decimal on kümnendsüsteemis olev komakohaga arv
+            float c = 3.9f; // float on 32-bitine komakohaga arv
+            double d = 5.6d; // double on 64-bitine komakohaga arv
+            char e = 'a'; // üksainsa tähe või tähmärgi märk tähistakse ülakomadga ''
+            string s = "tekst"; // tähtedest koosnev sõna või tekst, tähistatakse jutumärkidega ""
+            var x = "abc"; // var on ebamäärase andmetüübiga kohalik muutuja
+            var y = 123; // ta võib omada endas erineisi andmetüüpe
+            const int z = 9; // konstant-tüüpi muutujaid ei saa muuta, nende sisu on read-only
+
+            /* Võimalikud komposiitandmetüübid */
+            // 1. massiiv
+            // [] - > Massiiv on komposiitandmetüüp, mille sees saab olla mitmeid samat tüüpi lihtandmeid. Massiivi tähistatakse kantusulgudega.
+            //        Massiivse saab olla ükskõik millist lihtandmetüüpi massiiv.
+            //        Massiivi tekitamisel tuleb ära öelda kui pikk või kui suur see massiiv on.
+            //        Massiiv ei pea olema koostatud ainult lihtandmetüüpidest, vaid massiive saab olla ka tehtud teistest komposiitandmetüüpidest
+            //        Sealhulgas massiiv ise.
+
+            // Esimene tekitusviis:
+            int[] arvuMassiiv = new int[3];   // andmetüüp int väljendab et tegu on täisarvutüüpi andmega ja kantusulgud väljendavad et
+                                              // tegu ka massiiviga, muutuja nimeks on "arvuMassiiv" ja võrdusmärgi abil on omistatud
+                                              // muutuja sisse uus tühi massiiv kasutades kaitstud sõna "new", millele järgneb selle massiivi andmetüüp ja pikkuse sätestus "int[3]".
+                                              // See tähendab et siin massiivis on 3 elementi, mis on täisarvud.
+            // Teine tekitusviis:
+            int[] arvuMassiiv2 = { 1, 2, 3 }; // teine massiivi tekitusviis kus järjendi pikkuse sätestamise asemel, pannakse elemendid kohe
+                                              // järjendit omava muutujasse sisse, järjendi pikkust sätestama ei pea, kuna pikkuse tuletab kompilaator
+                                              // sinna sisse pandud elementide koguse järgi.
+                                              // --- massiivi sisemised meetodid:
+            
+            // -- massiivi sisemised meetodid:
+            int hasThisMany = arvuMassiiv.Length; // massiivi meetod "Length" mille me saame kasutusele võtta punkti abil, loendab kokku 
+                                                  // mitu elementi, adresseeritav massiiv omab, omistatakse ainult järjendi pikkus, mitte 
+                                                  // järjendi sees olevaid elemente.
+
+            //2. Loend:
+            // List<T> -> Loend on adnmetüüp, mille sees saab olla mitmeid samat tüüpi liht ja komposiitandmeid. Loend-tüüpi andmeid tähistatakse
+            //            täiendava andetüübkirjeldusega "List" mille järel noolsulgudesse <> asetatakse mis tüüpi andmed seal loendis on.
+            //            Loendi tekitamisel, erinevalt massiivist, ei pea ütlema kui pikk loend on. Loendisse saab dünaamiliselt elemente juurde lisada,
+            //            ehk tema pikkus ei ole fikseeritud. Sarnaselt massiiviga saab temas hoida ka teisi loendeid.
+            // Esimine tekitusviis:
+            List<int> arvuNimekrii = new List<int>(); //Andmetüübi kirjeldis "List<>" näitab et tegu on loendiga. Listi noolsulgude <> vahel on loendis
+                                                      //olevate andmete andmetüüp. Antud juhul on andmetüübiks "iks" mis tähistab säisarve. Muutuja enda 
+                                                      //nimeks on "arvuNimekiri". Omistame sellesse muutujasse kaitsud sõna "new" abl uue tühja
+                                                      //täisarvuloendi sätestusega "List<int>()".
+
+            // Teine tekitusviis:
+            List<int> arvuNimikiri2 = new List<int>() { 1, 2, 3 }; //Teine loendi tekitusviis. Andmetüübi kirjeldus "List<>" näitab et tegu on loendiga, Listi
+                                                                   //noolsulgude vahel on loendis olevate elementide andmetüüp. Antud juhul on andmetüübiks "int"
+                                                                   //mis tähistab täisarve. Muutuja enda nimeks on "arvuNimikiri2". Omistame selle muutujasse
+                                                                   //kaitstud sõna "new" abil uue taäisarvuloendi, aga seekord, pealesätestust "List<int>()" saame
+                                                                   //intsantsieerimise hetkel talle kaasa anda ka esimesi elemente. Antud juhul on need elemendid
+                                                                   //"1", "2 ja "3". Elemendid sisestatakse nimekirja loogeliste sulgude vahel. Enam ei ole tegu
+                                                                   //tühja nimekirjaga, vaid loendiga kus on kolm elementi juba sees.
+                                                                   // kolmas tekitusviis:
+            List<int> arvuNimekiri3 = new List<int>(3); //Kolmas loendi tekitusviis. Andmetüübi kirjeldus "List<>" näitab et tegu on loendiga, Listi noolsulgude
+                                                        //vahel on loendis olevate elementide andmetüüp. Antud juhul on andmetüübiks "int" mis tähistab täisarve.
+                                                        //Muutuja enda nimeks on "arvuNimekiri3". Omistame sellesse muutujasse kaitstud sõna "new" abil uue 
+                                                        //täisarvuloendi, aga tavaliste sulgude vahele paneme arvu "3". Sarnaselt massiiviga ütleb see, et
+                                                        //Loend on 3 elemndi suurune. Loend ise ja tema elemendid on tühjaad, aga seal on 3 elementi. Arv "3"
+                                                        //on parameeter mida Listi konstruktor pikkuse määramiseks kasutab. Nimekiri säilitab oma omaduse muuta
+                                                        //pikkust elementide lisamise-eemaldamisega, aga vajadusel saab nii anda talle pikkuse.
+
+            int aa = 9001;
+            // -- Loendu sisemised meetodid:
+            arvuNimekiri3.Add(99); //Loendi meetod "Add()" lisab enne punkti olevale järjendile uue elemendi, element mdia lisatakse on Add meetodi sulgude
+                                   //vahel. Elementi sasab lisada otse (antud juhul täisarv "99") 
+            arvuNimekiri3.Add(aa); //või muutujane
+            int loendiPikkus = arvuNimekiri3.Count(); //Loendi meetod "Count()" loeb kokkku mitu elementi järjendis on, meetod tagastab täisarvu mis vastab 
+                                                      //elementide kogusele.
+            bool KasSeearvOn = arvuNimekiri3.Contains(3); //Loendi meetod "Contains()", otsib kogu järjendi seest elementi, mis vastab sulgude vahel olevale
+                                                          //parameetrile. Meetod tagastab kas "true" või "false" - on leitud või ei ole. Tegemist on
+                                                          //põhimõtteliselt foreach tsükLiga, mis otsib kindlat vastet, töötades läbi kogu loendi.
+            arvuNimekiri3.Remove(4); //Loendi meetod "Remove()"eemaldab enne olevast loendist, kindlal asukohal oleva elemendi. Sulgude vahel on parameetriks
+                                     //eemaldatava elemendi asukohajärjekorranumber.
+
+
+
+
+
+
+
+
+
+
+
+
+
+
             //põhilised matemaatilised tehted
             int liitimne = 1 + 1; //liitmine, kaks arvu liidetakse kokku
             int lahutamine = 1 - 1; //lahutamine, kus esimesest arvust lahutatakse maha teine
@@ -195,45 +285,77 @@ namespace MinuKonspekt
             //tehte tulemus. Selle jaoks on WriteLine funktsioonis parameetrina pandud muutuja
             //"tulemus" ilma tekstiks teisendamata. Lause lõppeb lauselõpumärgiga ";".
 
-            string kasutajaNimi = "";
-            do
-            {
-                Console.WriteLine("Palun sisesta oma kasutajanimi: ");
-                kasutajaNimi = Console.ReadLine();
-            } while (kasutajaNimi != "user1");
-            if (kasutajaNimi == "user1")
-            {
-                int ruuduSuurus = 0;
 
-                do
-                {
-                    Console.WriteLine("Kui suurt ruutu saada tahad");
-                    ruuduSuurus = int.Parse(Console.ReadLine());
-                } while (ruuduSuurus < 0 && ruuduSuurus > 20);
 
-                char reaKujund = ' ';
-                string üksRida = "";
-                int tsükliMuutuja = ruuduSuurus;
 
-                do
-                {
-                    üksRida = üksRida + ")" + reaKujund;
-                    tsükliMuutuja = tsükliMuutuja - 1;
-                } while (tsükliMuutuja != 0);
 
-                tsükliMuutuja = ruuduSuurus;
 
-                do
-                {
-                    Console.WriteLine(üksRida);
-                    tsükliMuutuja -= 1;
-                } while (tsükliMuutuja != 0);
+            //Console.WriteLine("Sisesta ostusumma");
+            //double ostusumma = double.Parse(Console.ReadLine());
+            //if (ostusumma > 100)
+            //{
+            //    Console.WriteLine("Saad 20% allahindlust!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //}
+            //else if (ostusumma < 101 && ostusumma > 50)
+            //{
+            //    Console.WriteLine("Saad 10% allahindlust. c: yay");
+            //}
+            //else if (ostusumma < 51 && ostusumma > 20)
+            //{
+            //    Console.WriteLine("5% allahindlust.");
+            //}
+            //else if (ostusumma < 21 && ostusumma > 0)
+            //{
+            //    Console.WriteLine("allahindlust ei saa");
+            //}
+            //else
+            //{
+            //    Console.WriteLine("sisestatud on vigane arv");
+            //}
 
-                Console.WriteLine($"Palun, siin on sinu ruut, suurusega {ruuduSuurus}x{ruuduSuurus}");
-                //}
 
-                /* tingimuslause osad */
-                if (true) { } //kaitstud sõna "if" kutsub esile tingimuslause, mille tingimus on sulgude vahel, ning millele järgneb
+
+
+
+            //string kasutajaNimi = "";
+            //do
+            //{
+            //    Console.WriteLine("Palun sisesta oma kasutajanimi: ");
+            //    kasutajaNimi = Console.ReadLine();
+            //} while (kasutajaNimi != "user1");
+            //if (kasutajaNimi == "user1")
+            //{
+            //    int ruuduSuurus = 0;
+
+            //    do
+            //    {
+            //        Console.WriteLine("Kui suurt ruutu saada tahad");
+            //        ruuduSuurus = int.Parse(Console.ReadLine());
+            //    } while (ruuduSuurus < 0 && ruuduSuurus > 20);
+
+            //    char reaKujund = ' ';
+            //    string üksRida = "";
+            //    int tsükliMuutuja = ruuduSuurus;
+
+            //    do
+            //    {
+            //        üksRida = üksRida + ")" + reaKujund;
+            //        tsükliMuutuja = tsükliMuutuja - 1;
+            //    } while (tsükliMuutuja != 0);
+
+            //    tsükliMuutuja = ruuduSuurus;
+
+            //    do
+            //    {
+            //        Console.WriteLine(üksRida);
+            //        tsükliMuutuja -= 1;
+            //    } while (tsükliMuutuja != 0);
+
+            //    Console.WriteLine($"Palun, siin on sinu ruut, suurusega {ruuduSuurus}x{ruuduSuurus}");
+            //}
+
+            /* tingimuslause osad */
+            if (true) { } //kaitstud sõna "if" kutsub esile tingimuslause, mille tingimus on sulgude vahel, ning millele järgneb
                               //koodiplokk tingimuse täitumisel teostatava koodiga
                 else if (true) { } //kaitstud sõnad "else" ja "if" (else if) kutsuvad esile sekundaarse tingimuslause, mille tingimus
                                    //on samamoodi sulgude vahel, ning millele pepab eelnema alat kas "if" või teine "else if". Tingimuse täitumisel
@@ -241,32 +363,120 @@ namespace MinuKonspekt
                 else { } //kaitstud sõna else kutsub esile järeltingimuse, millele peab eelnema kas "if" või "else if", ning mille koodiploki sisu
                          //täidetakse kõikide teiste "if" ja "else if" tingimuste läbikukkumisel.
 
-                /* Loogilised tehted */
 
-                // && -> "and" loogiline tehe, mida kasutatakse tingimuste kirjeldamisel, ning mis annab positiivse vastuse (true) juhul kui
-                //       mõlemal pool "&&" märki olevad tingimused on täidetud. Kui üks neist ei ole, siis annab negatiivse vastuse (false).
-                // || -> "or"! loogiline tege, mida kasutatakse tingimuste kirjeldamisel, ning mis annab positiivse vastuse (true) siis kui
-                //       vähemalt üks tingimus on täidetud. Negatiivne vastus (false) tagastatakse siis, kui kõik tingimused on täitmata.
-                // ! -> "not" loogiline tehe, mida kasutatakse tingimuse tulemuse inverteerimiseks. Tulemus, mis muidu tagastaks (true),
-                //       hüüumärgi abil tagastab (false), ja vastupidi - tulemus mis muidu tagastaks (false), hüüumärgi abil tagastab (true)
+            int option = 3; // -------
 
-                /* Võrdlusoperaatorid */
+            switch (option) // "switch" on kaitstud sõna alternatiivse tingimuskontrolli jaoks, mida saab if-else asemel kasutada.
+                            // Sulgude vahele käib muutuja nimi, mille põhjal tingimuslik ümberlülitus toimub. 
+                            // Siin sulgude vahel ei ole tingimus ise, vaid kõigest kontrollitav muutuja või omakorda sulgude vahel muu tingimus.
+                            // Pärast lülitusvalikut tuleb koodiplokk.
+            {
+                case 1:
+                    // Koodiploki sees on erinevad juhtumid, juhtumit sätestatakse kaitstud sõna "case" abil.
+                    // Antud juhul kontrollitakse, kas muutuja "option" on väärtus 1, millele järgneb koolon ":".
+                    // Väljendades tingimuse täitumisel tehtava kooditegevuse algust.
+                    break;
+                // Kui tegevus on tehtud, väljutakse mitte ainult juhtumist, vaid kogu käesoleva case-tingimusblokist kaitstud
+                //sõnaga "break". Peaele breaki on läuselõpumärk ";".
+                //Juhtumeid võib olla mitmeid, antud juhul on neid kolm kindlalt.
+                case 2:
+                    break;
+                case 3:
+                    Console.WriteLine(option); //tehtav kooditegevus.
+                    break;
+                default:    //Default juhtumit täidetakse siis, kui ülejäänud juhtumid ei kirjelda muutujas "option" olevat seisu. 
+                    break;  //Ka default lõppeb sõnaga break.
+            }
 
-                // == --> "on võrdne". Võrdusmärkide ühel pool olev objekt peab vastama täpselt oma olemuselt võrdusmärkide teise pool oleva
-                //         objektiga. ei ole sama nagu üks võrdusmärk, üks võrdusmärk omistab, kaks võrdleb.
-                // != -> "ei ole võrdne". Võrdusmärgi ühel pool olev objekt *EI TOHI* olla samal kujul nagu võrdusmärgi teisel pool olev objekt.
-                //        Ta võib olla ükskõik mis muul kujul, aga mitte võrreldava objektiga samal kujul. Võrdlusoperaator on kombinatsioon
-                //        "on võrdne operaatorist, ja loogilisest tehet "not".
-                // > -> "on suurem kui". Märgist vasakul pool olev objekt peaks olema suurem, kui paremal pool olev objekt.
-                // < -> "on väiksem kui". Märgist vasakul pool olev objekt peaks olema väiksem, kui paremal pool olev objekt.
-                // >= -> "suuremvõrdne". Märgist vasakul pool olev objekt peaks olema vähemalt võrdne või suurem kui parempoolne objekt.
-                //        Võrdlusoperaator on kombinatsioon "on võrdne" ja "on suurem kui" operaatoritest.
-                // <= --> "väiksemvõrdne". Märgist vasakul pool olev objekt peaks olema vähemalt võrdne või väiksem kui parempoolne objekt.
-                // Võrdlusoperaator on kombinatsioon "on võrdne" ja "on väiksem kui" operaatoritest.
+            /* sõne tööriistad ja muud tekstiga seotut */
+            string alfa = "a\nb";        // \n -> tekitab ühe sõne sisse reamurde, sõne kus on sees üks "\n", omab kahte rida.
+            string beta = $"a {alfa} b"; // $ -> lubab kasutada muutjaid loogeliste sulgudega otse teks sees. On variant
+                                         // formateeritud stringist.
 
-                /* omistusoperaatorid ja kiirtehted */
+            
 
-                int thing = 1;// =  -> üksik võrdusmärk omistab muutujale sisse väärtuse, mida saab kasutada läbi muutuja nime.
+                /* Tsüklid */
+            // 1. do-while
+            int dew = 0;
+            do // "do" on kaitstud sõna, mis alustab do-while tsüklit. Pärast seda on koodiplokk {} ning ütleb et tee seda koodi
+            {
+                dew++;
+            } while (dew != 5); //niikaua kuni while järel olevate sulgude vahel tingimus ei täitu, käivitatakse eelnev kood uuesti.
+
+            // 2. while
+            int i = 1;  //tsüklimuutuja mis aitab järge pidada while tsükli toimimisel
+            while (i < 5) // "while" on kaitstud sõna mis alustab while tsükli varianti, ilma "do"-ta, ning vojab alati välist
+                          // tsüklimuutuja. antud juhul on selleks i. Tsükli tingimus, mis peale "while" sõna on, asub sulgude vahel,
+                          // siin kontrollitaksegi tsükli tööd, läbi kindla tingimuse kasutades tsüklimuutuja.
+                          // antud juhul tsükkel töötab niikaua, kuni i on väiksem kui 5. kui i on sama suur nagu 5, siis tsükkel
+                          // katkeb.
+            {
+                // koodiplokk kus midagi tehakse
+                i++; // ning seejärel muudetakse tsüklimuutuja "i" olekut. antud juhul liidetakse 1 juurde kiirtehtega "++".
+            }
+            // 3. for
+            int kogus = 6; // muutuja mida tsükkel kasutab oma töö tegemiseks - teisisõnu, töödeldavv materjal
+            for (int k = 0; k < kogus; k++) // kaitstud sõnaa "for" alustab for-tsüklit, pärast mida on sulud, mille vahel on kõik tsükli
+                                            // töö jaoks vajalik olemas. Esimine parameeter, tekistab tsükli töö jaoks kohaliku muutuja
+                                            // "int k =;" mida tsükli ENDA töö juhtimiseks. Teine parameeter on tingimuslause, mis kontrollib
+                                            // tingimuse täitumist "k < kogus;" ning mille täitumisel tsükli töö jätkub, aga mille
+                                            // mitte - täitumisel tsükkel katkeb. Kolmas parameeter on tsüklimuutuja inkrementeerimine kiirtehtega
+                                            // "k++".Pane tähele, et iga sulgude vahel oleva osa järel(välja arvatud viimase) on
+                                            // lauselõpumärk.Tsükli tööd kontrolliv tingimuslause koosneb kolmest reast, mitte ühest
+                                            // nagu "while" või "do-while" puhul.
+                                            // sulgudele järgneb, loogeliste sulgude vahel ole koodiplokk {}
+                                            // töötlustegevus tsükli sees, on muutuja "k" hetkearvu väljakuvamine.
+            {
+                Console.WriteLine(k);
+            }
+            // 4. foreach
+            int[] arvuLoend = { 3, 67, 420, 69, 42 }; //massiiv mida foreach kasutab või töötlebmingil kujul
+            foreach (var arvInLoend in arvuLoend) //kaitstud foreach alustab forach tsükli. Pärast mdia on sulud, mille vahel tekitatakse
+                                                  //ajutine muutuja andetüübiga "var" töödeldava andmekogumi üksikelemendi jaoks. süntaksis olev
+                                                  //kaitstud sõna "in" väljendab et tsükkel käib selle elementide kohta, ming vara "arvInLoend"
+                                                  //muutuja hoiab endas just peale sõna "in" olevaandmekogumi elementi. Tsükli ei ole nähtasvat
+                                                  //tsüklimuutujat ega tingumust, tsükkel niikaua kuni elemente jätkub, ehk tsükli töö käib
+                                                  //iga üksiku elemendi kohta andmekogumis individuaalselt. Tsükli ole vaja tsüklimuutujat, kuna talle on 
+                                                  //sisse ehitatatud vaikimisi elemendi järjestuse jälgimine. 
+                                                  //peale sulge, on koodiplokk {} kus tehakse mingi tegevus
+                                                  //Antud juhul kuvatakse välja ajutine muutuja, mille sees on loendi, hetkel tsüklis olev element.
+            {
+                Console.WriteLine(arvInLoend);
+            }
+
+
+
+
+
+
+
+            /* Loogilised tehted */
+
+
+            // && -> "and" loogiline tehe, mida kasutatakse tingimuste kirjeldamisel, ning mis annab positiivse vastuse (true) juhul kui
+            //       mõlemal pool "&&" märki olevad tingimused on täidetud. Kui üks neist ei ole, siis annab negatiivse vastuse (false).
+            // || -> "or"! loogiline tege, mida kasutatakse tingimuste kirjeldamisel, ning mis annab positiivse vastuse (true) siis kui
+            //       vähemalt üks tingimus on täidetud. Negatiivne vastus (false) tagastatakse siis, kui kõik tingimused on täitmata.
+            // ! -> "not" loogiline tehe, mida kasutatakse tingimuse tulemuse inverteerimiseks. Tulemus, mis muidu tagastaks (true),
+            //       hüüumärgi abil tagastab (false), ja vastupidi - tulemus mis muidu tagastaks (false), hüüumärgi abil tagastab (true)
+
+            /* Võrdlusoperaatorid */
+
+            // == --> "on võrdne". Võrdusmärkide ühel pool olev objekt peab vastama täpselt oma olemuselt võrdusmärkide teise pool oleva
+            //         objektiga. ei ole sama nagu üks võrdusmärk, üks võrdusmärk omistab, kaks võrdleb.
+            // != -> "ei ole võrdne". Võrdusmärgi ühel pool olev objekt *EI TOHI* olla samal kujul nagu võrdusmärgi teisel pool olev objekt.
+            //        Ta võib olla ükskõik mis muul kujul, aga mitte võrreldava objektiga samal kujul. Võrdlusoperaator on kombinatsioon
+            //        "on võrdne operaatorist, ja loogilisest tehet "not".
+            // > -> "on suurem kui". Märgist vasakul pool olev objekt peaks olema suurem, kui paremal pool olev objekt.
+            // < -> "on väiksem kui". Märgist vasakul pool olev objekt peaks olema väiksem, kui paremal pool olev objekt.
+            // >= -> "suuremvõrdne". Märgist vasakul pool olev objekt peaks olema vähemalt võrdne või suurem kui parempoolne objekt.
+            //        Võrdlusoperaator on kombinatsioon "on võrdne" ja "on suurem kui" operaatoritest.
+            // <= --> "väiksemvõrdne". Märgist vasakul pool olev objekt peaks olema vähemalt võrdne või väiksem kui parempoolne objekt.
+            // Võrdlusoperaator on kombinatsioon "on võrdne" ja "on väiksem kui" operaatoritest.
+
+            /* omistusoperaatorid ja kiirtehted */
+
+            int thing = 1;// =  -> üksik võrdusmärk omistab muutujale sisse väärtuse, mida saab kasutada läbi muutuja nime.
                 thing += 1;   // += -> võrdusmärk mille ees on pluss, automaatselt liidab muutujale otsa võrdusmärgi teisel pool oleva arvu.
                               //       asendab tehet "thing = thing + 1". on kombinatsioon matemaatilisest tehetest "+" ja omistamisest "=".
                 thing -= 1;   // -= -> võrdusmärk mille ees on miinus, automaatselt lahutab muutujast maha võrdusmärgi teisel pool oleva arvu.
@@ -291,5 +501,5 @@ namespace MinuKonspekt
 
             }
         }
-    } 
-}
+    }
+
